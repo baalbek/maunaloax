@@ -17,6 +17,10 @@ public class MongoDBResult {
         this.savedObject = savedObject;
         this.writeResult = writeResult;
     }
+    public MongoDBResult(WriteResult writeResult) {
+        this.savedObject = null;
+        this.writeResult = writeResult;
+    }
 
     public WriteResult getWriteResult() {
         return writeResult;
