@@ -9,9 +9,11 @@ import java.util.Date;
 import java.util.List;
 
 public interface ChartWindowDressingModel {
+    public static int MONGO_FIBONACCI = 1;
+    public static int MONGO_LEVELS = 2;
     List<DBObject> fetchComments(ObjectId id);
     WriteResult addComment(ObjectId id, String comment);
-    WriteResult updateCoord(ObjectId id, DBObject p1, DBObject p2);
+    WriteResult updateCoord(int collection, ObjectId id, DBObject p1, DBObject p2);
     MongoDBResult saveFibonacci(String ticker, long location, DBObject p1, DBObject p2);
     List<DBObject> fetchFibonacci(String ticker, long location, Date fromDate, Date toDate);
 }
