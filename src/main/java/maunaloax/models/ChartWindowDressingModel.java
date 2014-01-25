@@ -14,8 +14,8 @@ public interface ChartWindowDressingModel {
     List<DBObject> fetchComments(ObjectId id);
     WriteResult addComment(ObjectId id, String comment);
     WriteResult updateCoord(int collection, ObjectId id, DBObject p1, DBObject p2);
-    MongoDBResult saveFibonacci(String ticker, long location, DBObject p1, DBObject p2);
-    List<DBObject> fetchFibonacci(String ticker, long location, Date fromDate, Date toDate);
+    MongoDBResult save(int collection, String ticker, long location, DBObject p1, DBObject p2);
+    List<DBObject> fetch(int collection, String ticker, long location, Date fromDate, Date toDate);
 }
 
 
