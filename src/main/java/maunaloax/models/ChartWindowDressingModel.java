@@ -16,6 +16,10 @@ public interface ChartWindowDressingModel {
     WriteResult updateCoord(int collection, ObjectId id, DBObject p1, DBObject p2);
     MongoDBResult save(int collection, String ticker, long location, DBObject p1, DBObject p2);
     List<DBObject> fetch(int collection, String ticker, long location, Date fromDate, Date toDate);
+    boolean isCloud();
+    void setCloud(boolean value);
+    String getMongodbHost();
+    void setMongodbHost(String value);
 }
 
 
