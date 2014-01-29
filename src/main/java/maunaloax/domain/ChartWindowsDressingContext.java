@@ -12,15 +12,19 @@ import java.util.Date;
  * Time: 14:19
  */
 public class ChartWindowsDressingContext {
-    private final int collection;
-    private final String ticker;
-    private final long loc;
+    private int collection;
+    private String ticker;
+    private long loc;
     private int activeSwitch = ChartWindowDressingModel.ACTIVE;
     private DBObject p1;
     private DBObject p2;
     private Date fromDate;
     private Date toDate;
     private double value;
+
+    public ChartWindowsDressingContext() {
+
+    }
 
     public ChartWindowsDressingContext(int collection,
                                        String ticker,

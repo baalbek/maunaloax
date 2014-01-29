@@ -21,7 +21,7 @@ public interface ChartWindowDressingModel {
 /*    MongoDBResult save(int collection, String ticker, long location, DBObject p1, DBObject p2);
     List<DBObject> fetch(int collection, String ticker, long location, int activeSwitch, Date fromDate, Date toDate);*/
     MongoDBResult save(ChartWindowsDressingContext ctx);
-    MongoDBResult fetch(ChartWindowsDressingContext ctx);
+    List<DBObject> fetch(ChartWindowsDressingContext ctx);
     boolean isCloud();
     void setCloud(boolean value);
     String getMongodbHost();
