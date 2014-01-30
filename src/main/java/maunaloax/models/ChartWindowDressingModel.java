@@ -12,6 +12,7 @@ import java.util.List;
 public interface ChartWindowDressingModel {
     public static int MONGO_FIBONACCI = 1;
     public static int MONGO_LEVELS = 2;
+    public static int MONGO_ALL = 3;
     public static int ACTIVE = 1;
     public static int INACTIVE = 2;
     public static int BOTH = 3;
