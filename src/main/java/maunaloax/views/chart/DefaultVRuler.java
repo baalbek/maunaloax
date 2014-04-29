@@ -19,6 +19,12 @@ public class DefaultVRuler implements IBoundaryRuler {
     private final double ppx;
     private final double maxValue;
 
+    public static DefaultVRuler createDummy() {
+        return new DefaultVRuler(new Point2D(0,0),
+                                 new Point2D(200,200),
+                                 0.005,
+                                 100.0);
+    }
     public DefaultVRuler(Point2D ul, Point2D lr, double ppx, double maxValue) {
         this.ppx = ppx;
         this.ul = ul;

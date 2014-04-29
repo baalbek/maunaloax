@@ -24,6 +24,13 @@ public class DefaultDateRuler implements IDateBoundaryRuler {
     private final DateMidnight end;
     private final int snapUnit;
 
+    public static DefaultDateRuler createDummy() {
+        return new DefaultDateRuler(0,
+                                    new Date(2010-1900,0,1),
+                                    new Date(2020-1900,11,1),
+                                    0.002,
+                                    10);
+    }
     public DefaultDateRuler(double x0, Date start, Date end, double ppx, int snapUnit) {
         this.x0 = x0;
         this.ppx = ppx;
