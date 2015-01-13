@@ -3,10 +3,10 @@ package maunaloax.views.chart;
 import oahux.chart.IDateBoundaryRuler;
 import oahux.chart.IRuler;
 import org.apache.log4j.Logger;
-import org.joda.time.DateMidnight;
-import org.joda.time.DateTimeConstants;
-import org.joda.time.Days;
+import java.time.Instant;
+import java.time.LocalDate;
 
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -20,8 +20,8 @@ public class DefaultDateRuler implements IDateBoundaryRuler {
 
     private final double x0;
     private final double ppx;
-    private final DateMidnight start;
-    private final DateMidnight end;
+    private final LocalDate start;
+    private final LocalDate end;
     private final int snapUnit;
 
     public static DefaultDateRuler createDummy() {
@@ -34,22 +34,22 @@ public class DefaultDateRuler implements IDateBoundaryRuler {
     public DefaultDateRuler(double x0, Date start, Date end, double ppx, int snapUnit) {
         this.x0 = x0;
         this.ppx = ppx;
-        this.start = new DateMidnight(start);
-        this.end = new DateMidnight(end);
+        this.start = date2loc(start);
+        this.end = date2loc(end);
         this.snapUnit = snapUnit;
     }
 
     //region Interface Methods
     @Override
     public double calcPix(Object value) {
-        DateMidnight valuex = null;
+        LocalDate valuex = null;
         if (value instanceof Date) {
-            valuex = new DateMidnight(value);
+            valuex = ((Date)value).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         }
         else {
-            valuex = (DateMidnight)value;
+            valuex = (LocalDate)value;
         }
-        int daysElapsed =  Days.daysBetween(start,valuex).getDays();
+        int daysElapsed =  100; //===>>> Days.daysBetween(start,valuex).getDays();
 
         double result = x0 + (ppx * daysElapsed);
 
@@ -67,7 +67,7 @@ public class DefaultDateRuler implements IDateBoundaryRuler {
 
         int adjSec = calcAdjustedSections(pix);
 
-        DateMidnight dm = start.plusDays(adjSec);
+        LocalDate dm = start.plusDays(adjSec);
 
         //return dm.toDate();
         return dm;
@@ -85,21 +85,31 @@ public class DefaultDateRuler implements IDateBoundaryRuler {
                return pix;
         }
     }
+    @Override
+    public Date getStartDate() {
+        return loc2date(start);
+    }
+
+
+    @Override
+    public Date getEndDate() {
+        return loc2date(end);
+    }
     //endregion Interface Methods
 
     //region Private methods
 
     private double calculateSnapToWeek(double pix) {
-        DateMidnight curDay = (DateMidnight)calcValue(pix);
-        DateMidnight nearestFriday = calcNearestFriday(curDay);
+        LocalDate curDay = (LocalDate)calcValue(pix);
+        LocalDate nearestFriday = calcNearestFriday(curDay);
         if (log.isDebugEnabled()) {
             log.debug(String.format("(calculateSnapToWeek) pix: %.4f, curDay: %s, nearest friday: %s", pix, curDay, nearestFriday));
         }
         return calcPix(nearestFriday);
     }
 
-    private DateMidnight calcNearestFriday(DateMidnight curDay) {
-        return curDay.withDayOfWeek(DateTimeConstants.FRIDAY);
+    private LocalDate calcNearestFriday(LocalDate curDay) {
+        return null; //===>>> curDay.withDayOfWeek(DateTimeConstants.FRIDAY);
     }
 
     private double calculateSnapToDay(double pix) {
@@ -135,14 +145,13 @@ public class DefaultDateRuler implements IDateBoundaryRuler {
         return result;
     }
 
-    @Override
-    public Date getStartDate() {
-        return start.toDate();
-    }
 
-    @Override
-    public Date getEndDate() {
-        return end.toDate();
+    private Date loc2date(LocalDate loc) {
+        Instant instant = loc.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant();
+        return Date.from(instant);
+    }
+    private LocalDate date2loc(Date dx) {
+        return dx.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     }
     //endregion Private methods
 
