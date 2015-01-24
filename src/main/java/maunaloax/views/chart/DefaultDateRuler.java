@@ -3,10 +3,14 @@ package maunaloax.views.chart;
 import oahux.chart.IDateBoundaryRuler;
 import oahux.chart.IRuler;
 import org.apache.log4j.Logger;
+
+import java.time.DayOfWeek;
 import java.time.Instant;
 import java.time.LocalDate;
 
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Date;
 
 /**
@@ -49,7 +53,7 @@ public class DefaultDateRuler implements IDateBoundaryRuler {
         else {
             valuex = (LocalDate)value;
         }
-        int daysElapsed =  100; //===>>> Days.daysBetween(start,valuex).getDays();
+        long daysElapsed =  ChronoUnit.DAYS.between(start, valuex);
 
         double result = x0 + (ppx * daysElapsed);
 
@@ -109,7 +113,7 @@ public class DefaultDateRuler implements IDateBoundaryRuler {
     }
 
     private LocalDate calcNearestFriday(LocalDate curDay) {
-        return null; //===>>> curDay.withDayOfWeek(DateTimeConstants.FRIDAY);
+        return curDay.with(TemporalAdjusters.next(DayOfWeek.FRIDAY));
     }
 
     private double calculateSnapToDay(double pix) {
