@@ -1,8 +1,9 @@
 apply plugin: 'java'
 group = 'rcstadheim'
 archivesBaseName = 'maunaloax'
-version = '4.0'
- 
+
+version = "$major.$minor.1"
+
 repositories {
     mavenCentral()
 }
@@ -10,8 +11,7 @@ repositories {
 dependencies {
     compile project(':oahu')
     compile project(':oahux')
-    //compile 'joda-time:joda-time:2.3'
-    compile 'log4j:log4j:1.2.17'
-    compile 'org.mongodb:mongo-java-driver:2.11.3'
+    compile "log4j:log4j:$log4jVersion"
+    compile "org.mongodb:mongo-java-driver:$mongoVersion"
 }
 
