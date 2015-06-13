@@ -2,7 +2,7 @@ apply plugin: 'java'
 group = 'rcstadheim'
 archivesBaseName = 'maunaloax'
 
-version = "$major.$minor.1"
+version = "$major.$minor.0"
 
 repositories {
     mavenCentral()
