@@ -15,3 +15,6 @@ dependencies {
     compile "org.mongodb:mongo-java-driver:$mongoVersion"
 }
 
+task cj(type: Copy, dependsOn: [build]) {
+    into '../maunaloa/dist' from new File("$libsDir/maunaloax-${version}.jar")
+}
