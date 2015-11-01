@@ -19,7 +19,7 @@ import java.util.Date;
  * Date: 3/29/13
  * Time: 6:31 PM
  */
-public class DefaultDateRuler implements IDateBoundaryRuler {
+public class DefaultDateRuler implements IDateBoundaryRuler<LocalDate> {
     private Logger log = Logger.getLogger(getClass().getPackage().getName());
 
     private final double x0;
@@ -45,7 +45,8 @@ public class DefaultDateRuler implements IDateBoundaryRuler {
 
     //region Interface Methods
     @Override
-    public double calcPix(Object value) {
+    public double calcPix(LocalDate value) {
+        /*
         LocalDate valuex = null;
         if (value instanceof Date) {
             valuex = ((Date)value).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -53,7 +54,8 @@ public class DefaultDateRuler implements IDateBoundaryRuler {
         else {
             valuex = (LocalDate)value;
         }
-        long daysElapsed =  ChronoUnit.DAYS.between(start, valuex);
+        //*/
+        long daysElapsed =  ChronoUnit.DAYS.between(start, value);
 
         double result = x0 + (ppx * daysElapsed);
 
@@ -67,7 +69,7 @@ public class DefaultDateRuler implements IDateBoundaryRuler {
 
 
     @Override
-    public Object calcValue(double pix) {
+    public LocalDate calcValue(double pix) {
 
         int adjSec = calcAdjustedSections(pix);
 

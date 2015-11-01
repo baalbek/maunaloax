@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
  * Date: 3/29/13
  * Time: 6:30 PM
  */
-public class DefaultVRuler implements IBoundaryRuler {
+public class DefaultVRuler implements IBoundaryRuler<Double> {
     private Logger log = Logger.getLogger(getClass().getPackage().getName());
     private final Point2D ul;
     private final Point2D lr;
@@ -33,9 +33,9 @@ public class DefaultVRuler implements IBoundaryRuler {
     }
 
     @Override
-    public double calcPix(Object value) {
+    public double calcPix(Double valx) {
 
-        double valx = ((Double)value).doubleValue();
+        //double valx = ((Double)value).doubleValue();
         double diff = maxValue - valx;
 
         double result = ul.getY() + (ppx * diff);
@@ -49,11 +49,11 @@ public class DefaultVRuler implements IBoundaryRuler {
     }
 
     @Override
-    public Object calcValue(double pix) {
+    public Double calcValue(double pix) {
         double pxv = 1.0 / ppx;
         double v = pxv * (pix - ul.getY());
 
-        return new Double(maxValue - v);
+        return (maxValue - v);
     }
 
     @Override
