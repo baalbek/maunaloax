@@ -1,2 +1,3 @@
+rootProject.name = 'maunaloax'
 includeFlat 'oahu'
 includeFlat 'oahux'

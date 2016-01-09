@@ -1,6 +1,5 @@
 apply plugin: 'java'
 group = 'rcstadheim'
-archivesBaseName = 'maunaloax'
 
 version = "$major.$minor.0"
 
