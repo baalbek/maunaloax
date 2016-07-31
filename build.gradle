@@ -1,7 +1,7 @@
 apply plugin: 'java'
 group = 'rcstadheim'
 
-version = "$major.$minor.0"
+version = "$major.$minor.1"
 
 repositories {
     mavenCentral()
@@ -14,6 +14,8 @@ dependencies {
     compile "org.mongodb:mongo-java-driver:$mongoVersion"
 }
 
-task cj(type: Copy, dependsOn: [build]) {
-    into '../maunaloa/dist' from new File("$libsDir/maunaloax-${version}.jar")
+def jarFile = new File("$libsDir/maunaloax-${version}.jar")
+
+task copyToParentProject(type: Copy, dependsOn: jar) {
+    into parentDist from jarFile
 }
